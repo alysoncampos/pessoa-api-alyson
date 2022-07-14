@@ -57,29 +57,29 @@ public class PessoasDadosPessoaisService {
     }
 
     public PessoasDadosPessoaisDTO post(PessoasDadosPessoaisDTO pessoasDadosPessoaisDTO) {
-        pessoaService.create(convertToPessoaCreateDTO(pessoasDadosPessoaisDTO));
-
         dadosPessoaisService.post(convertToDadosPessoaisDTO(pessoasDadosPessoaisDTO));
+
+        pessoaService.create(convertToPessoaCreateDTO(pessoasDadosPessoaisDTO));
 
         return pessoasDadosPessoaisDTO;
     }
 
     public PessoasDadosPessoaisDTO put(String cpf, PessoasDadosPessoaisDTO pessoasDadosPessoaisDTO) throws RegraDeNegocioException {
+        dadosPessoaisService.put(cpf, convertToDadosPessoaisDTO(pessoasDadosPessoaisDTO));
+
         Pessoa pessoaRecuperada = findByCpf(cpf);
 
         pessoaService.update(pessoaRecuperada.getIdPessoa(), convertToPessoaCreateDTO(pessoasDadosPessoaisDTO));
-
-        dadosPessoaisService.put(cpf, convertToDadosPessoaisDTO(pessoasDadosPessoaisDTO));
 
         return pessoasDadosPessoaisDTO;
     }
 
     public void delete(String cpf) throws RegraDeNegocioException {
+        dadosPessoaisService.delete(cpf);
+
         Pessoa pessoaRecuperada = findByCpf(cpf);
 
         pessoaService.delete(pessoaRecuperada.getIdPessoa());
-
-        dadosPessoaisService.delete(cpf);
     }
 
     public PessoaCreateDTO convertToPessoaCreateDTO(PessoasDadosPessoaisDTO pessoa) {

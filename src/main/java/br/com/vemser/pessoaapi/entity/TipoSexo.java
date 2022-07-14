@@ -1,5 +1,5 @@
 package br.com.vemser.pessoaapi.entity;
 
-public enum Sexo {
+public enum TipoSexo {
     M, F;
 }
